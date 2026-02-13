@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Arisoft AI · global intelligence</title>
+  <style>
+    /* ---------------------------------------------------------
+      ARISOFT AI – PROFESSIONAL CHAT HOME PAGE
+      Time-aware · Bangladesh updates · Creator: ARIYAN
+      Unique thinking indicator: 🧠 neural synthesis
+      Hamburger sidebar · Clear chat in header
+    --------------------------------------------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+    }
+
+    :root {
+      --bg-deep: #03050b;
+      --surface-glass: rgba(10, 16, 28, 0.85);
+      --neon-cyan: #00e5ff;
+      --neon-glow: 0 0 20px rgba(0, 200, 255, 0.25);
+      --text-bright: #f0fcff;
+      --text-soft: #cbd5e8;
+      --ai-bubble: linear-gradient(145deg, #1a1f2e, #121724);
+      --user-bubble: linear-gradient(145deg, #00324a, #001e30);
+      --border-glow: rgba(0, 229, 255, 0.35);
+      --card-bg: rgba(8, 16, 28, 0.8);
+      --sidebar-width: 320px;
+    }
+
+    body {
+      background: radial-gradient(circle at 40% 20%, #0a101c, #020408);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    /* ---------- MAIN APP CONTAINER ---------- */
+    .arisoft-app {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 900px;
+      height: 98vh;
+      background: rgba(6, 10, 20, 0.65);
+      backdrop-filter: blur(30px) saturate(180%);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(0, 230, 255, 0.18);
+      border-radius: 36px;
+      box-shadow: 0 25px 50px -20px black, inset 0 0 0 1px rgba(255,255,255,0.02);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ---------- HEADER WITH HAMBURGER, TOKEN, CLEAR CHAT ---------- */
+    .prestige-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+      background: rgba(5, 9, 16, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .identity {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .arisoft-wordmark {
+      font-size: 1.7rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #e0f4ff, #a8ecff, #6ad4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px #00e5ff80;
+      letter-spacing: -0.02em;
+    }
+
+    .creator-badge {
+      background: rgba(0, 230, 255, 0.15);
+      padding: 5px 14px;
+      border-radius: 60px;
+      border: 1px solid #00e5ff;
+      color: #e0faff;
+      font-weight: 700;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ---------- RIGHT HEADER GROUP: TOKEN + CLEAR + HAMBURGER ---------- */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .token-indicator {
+      background: #0a1422;
+      border: 1px solid #00e5ff70;
+      border-radius: 60px;
+      padding: 6px 16px;
+      color: #b0f0ff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .clear-chat-btn {
+      background: rgba(255, 80, 100, 0.08);
+      border: 1px solid #ff7f9f;
+      border-radius: 40px;
+      padding: 6px 16px;
+      color: #ffd0d0;
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: 0.15s;
+      white-space: nowrap;
+      backdrop-filter: blur(5px);
+    }
+    .clear-chat-btn:hover {
+      background: rgba(255, 80, 100, 0.2);
+      border-color: #ffa0b0;
+    }
+
+    /* ---------- HAMBURGER (3 LINES) – OPENS SIDEBAR ---------- */
+    .hamburger-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid #00e5ff70;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      flex-shrink: 0;
+    }
+    .hamburger-btn:hover {
+      background: #00e5ff20;
+      border-color: #00e5ff;
+    }
+    .hamburger-line {
+      width: 22px;
+      height: 2px;
+      background: #e0faff;
+      border-radius: 4px;
+    }
+
+    /* ---------- SIDEBAR DRAWER (RIGHT) – HIDDEN BY DEFAULT ---------- */
+    .sidebar-drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: var(--sidebar-width);
+      height: 100%;
+      background: rgba(8, 14, 26, 0.97);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border-left: 1px solid #00e5ff80;
+      box-shadow: -10px 0 40px black;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+      z-index: 1000;
+      overflow-y: auto;
+      border-radius: 36px 0 0 36px;
+    }
+    .sidebar-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 4, 12, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ---------- SIDEBAR CONTENT – PREMIUM ---------- */
+    .settings-category {
+      background: rgba(10, 16, 28, 0.7);
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid #00e5ff30;
+    }
+
+    .category-title {
+      color: #a0f0ff;
+      font-size: 0.75rem;
+      letter-spacing: 2.5px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #00e5ff50;
+      padding-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .input-luxury, .model-picker {
+      width: 100%;
+      background: #0a121e;
+      border: 1px solid #2e4a6a;
+      border-radius: 44px;
+      padding: 12px 20px;
+      color: white;
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 16px;
+    }
+    .input-luxury:focus, .model-picker:focus {
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 2px #00e5ff30;
+    }
+
+    .slider-elegant {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .slider-elegant input {
+      width: 100%;
+      accent-color: #00e5ff;
+    }
+
+    /* ---------- CREATOR THRONE – ABSOLUTE IDENTITY ---------- */
+    .creator-throne {
+      background: linear-gradient(145deg, #001a26, #00101c);
+      border-radius: 28px;
+      padding: 24px;
+      border: 1.2px solid #00e5ff;
+      box-shadow: 0 0 35px #00e5ff30;
+    }
+    .creator-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #b0f0ff, #70e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+    .telegram-lux {
+      background: #0088cc;
+      padding: 12px 22px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 0.95rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .token-footer {
+      background: #001a24;
+      border-radius: 40px;
+      padding: 16px;
+      text-align: center;
+      border: 1px solid #00e5ff80;
+    }
+
+    /* ---------- CHAT AREA – HOME ---------- */
+    .message-arena {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      scroll-behavior: smooth;
+    }
+
+    .message-fleet {
+      display: flex;
+      animation: slideUp 0.26s ease-out;
+    }
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .user-fleet { justify-content: flex-end; }
+    .ai-fleet { justify-content: flex-start; }
+
+    .nebula-bubble {
+      max-width: 88%;
+      padding: 18px 22px;
+      border-radius: 28px;
+      background: var(--ai-bubble);
+      border: 1px solid rgba(255,255,255,0.02);
+      color: var(--text-bright);
+      line-height: 1.6;
+      font-size: 0.98rem;
+      position: relative;
+      box-shadow: 0 12px 20px -16px black;
+      word-break: break-word;
+    }
+    .user-fleet .nebula-bubble {
+      background: var(--user-bubble);
+      border-bottom-right-radius: 6px;
+      border: 1px solid #00e5ff90;
+    }
+    .ai-fleet .nebula-bubble {
+      background: linear-gradient(145deg, #1c2235, #151c2c);
+      border-bottom-left-radius: 6px;
+      border: 1px solid #00e5ff50;
+    }
+
+    .copy-vessel {
+      position: absolute;
+      bottom: -12px;
+      right: 16px;
+      background: #1f2e42;
+      border: 1px solid #00e5ff;
+      color: #e0faff;
+      padding: 5px 16px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      opacity: 0.9;
+    }
+
+    /* ---------- UNIQUE THINKING INDICATOR: 🧠 NEURAL SYNTHESIS ---------- */
+    .thinking-unique {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 26px;
+      background: rgba(18, 26, 42, 0.95);
+      border-radius: 60px;
+      width: fit-content;
+      border: 1px solid #00e5ff;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #00e5ff40;
+    }
+    .neural-pulse {
+      font-size: 1.8rem;
+      animation: soft-glow 1.8s infinite;
+    }
+    .neural-text {
+      color: #c0f4ff;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+    @keyframes soft-glow {
+      0%, 100% { opacity: 0.8; text-shadow: 0 0 10px #00e5ff; }
+      50% { opacity: 1; text-shadow: 0 0 25px #00e5ff, 0 0 10px #aaf0ff; }
+    }
+
+    /* ---------- INPUT BAR – PURE CHAT ---------- */
+    .input-bar {
+      padding: 16px 22px;
+      background: rgba(5, 9, 18, 0.95);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid #00e5ff40;
+      display: flex;
+      gap: 14px;
+      align-items: flex-end;
+    }
+    .composer {
+      flex: 1;
+      background: #0c1220;
+      border: 1px solid #2d4c6e;
+      border-radius: 34px;
+      padding: 14px 22px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      resize: none;
+      max-height: 120px;
+    }
+    .composer:focus {
+      border-color: #00e5ff;
+      box-shadow: 0 0 0 2px #00e5ff30;
+    }
+    .send-rocket {
+      background: radial-gradient(circle at 40% 40%, #00c8ff, #0077be);
+      border: none;
+      width: 58px;
+      height: 58px;
+      border-radius: 50px;
+      color: white;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px #00e5ff;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* scrollbar */
+    .message-arena::-webkit-scrollbar { width: 4px; }
+    .message-arena::-webkit-scrollbar-track { background: #0e141f; }
+    .message-arena::-webkit-scrollbar-thumb { background: #00e5ff80; border-radius: 10px; }
+    .sidebar-drawer::-webkit-scrollbar { width: 4px; }
+    .sidebar-drawer::-webkit-scrollbar-thumb { background: #00e5ff80; border-radius: 10px; }
+
+    @media (max-width: 480px) {
+      .arisoft-wordmark { font-size: 1.4rem; }
+      .token-indicator { padding: 5px 12px; font-size: 0.75rem; }
+      .clear-chat-btn { padding: 5px 12px; }
+      .sidebar-drawer { width: 85%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="arisoft-app">
+
+    <!-- OVERLAY for sidebar -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- SIDEBAR DRAWER (RIGHT) – all settings & creator info -->
+    <div class="sidebar-drawer" id="settingsSidebar">
+      <div class="settings-category">
+        <div class="category-title"><span>🔑</span> OPENROUTER</div>
+        <input type="password" class="input-luxury" id="apiKeyField" placeholder="sk-or-...">
+        
+        <div class="category-title"><span>🧠</span> MODEL</div>
+        <select class="model-picker" id="modelSelector">
+          <option value="stepfun/step-3.5-flash:free" selected>stepfun/step-3.5-flash:free</option>
+          <option value="arcee-ai/trinity-large-preview:free">arcee-ai/trinity-large:free</option>
+          <option value="openai/gpt-4o-mini">gpt-4o-mini</option>
+        </select>
+        
+        <div class="slider-elegant">
+          <div style="display:flex; justify-content: space-between; color:#b0f0ff;">
+            <span>🌡️ temperature</span>
+            <span id="tempLabel">0.70</span>
+          </div>
+          <input type="range" id="tempSlider" min="0" max="1.5" step="0.05" value="0.7">
+        </div>
+      </div>
+
+      <div class="creator-throne">
+        <div style="display:flex; gap:14px; align-items:center;">
+          <span style="font-size:2.4rem;">👑</span>
+          <div>
+            <div style="color:#a0f0ff; font-size:0.75rem; letter-spacing:1px;">CREATED & OWNED BY</div>
+            <div class="creator-name">ARIYAN</div>
+          </div>
+        </div>
+        <p style="color:#e0f4ff; margin: 20px 0 12px; line-height:1.6;">
+          Arisoft AI is a proprietary system.<br><strong>Creator: Ariyan</strong>.
+        </p>
+        <a href="https://t.me/Devilback12" target="_blank" class="telegram-lux">
+          📬 @Devilback12 (Telegram)
+        </a>
+        <p style="color:#b0f0ff; margin-top:22px; font-style:italic; border-top:1px solid #00e5ff40; padding-top:16px;">
+          “I am Arisoft AI. My creator and owner is Ariyan.”
+        </p>
+      </div>
+
+      <div class="token-footer">
+        <span style="color:#b0f0ff;">session tokens · </span>
+        <span style="color:#00e5ff; font-size:1.5rem; font-weight:800;" id="sideToken">0</span>
+      </div>
+    </div>
+
+    <!-- ========== MAIN CHAT HOME PAGE ========== -->
+    <div class="prestige-header">
+      <div class="identity">
+        <span class="arisoft-wordmark">Arisoft AI</span>
+        <span class="creator-badge">powered by ARIYAN</span>
+      </div>
+      
+      <div class="header-actions">
+        <!-- token indicator -->
+        <div class="token-indicator">
+          <span style="color:#00e5ff;">⚡</span>
+          <span id="globalToken">0</span>
+        </div>
+        <!-- CLEAR CHAT BUTTON (beside token) -->
+        <button class="clear-chat-btn" id="clearChatBtn">
+          <span>🗑️</span> clear
+        </button>
+        <!-- 3-line hamburger -->
+        <div class="hamburger-btn" id="hamburgerBtn">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MESSAGE ARENA -->
+    <div class="message-arena" id="messageArena"></div>
+
+    <!-- UNIQUE THINKING INDICATOR: 🧠 NEURAL SYNTHESIS (hidden by default) -->
+    <div id="typingIndicatorLux" style="display: none; padding: 0 22px 10px 22px;">
+      <div class="thinking-unique">
+        <span class="neural-pulse">🧠</span>
+        <span class="neural-text">Arisoft Thinking </span>
+      </div>
+    </div>
+
+    <!-- INPUT BAR – PURE CHAT -->
+    <div class="input-bar">
+      <textarea class="composer" id="textComposer" placeholder="Ask Arisoft AI..." rows="1"></textarea>
+      <button class="send-rocket" id="sendMessageBtn">➤</button>
+    </div>
+
+  </div> <!-- end arisoft-app -->
+
+  <script>
+    (function(){
+      "use strict";
+
+      // ---------- ARISOFT AI · GLOBAL INTELLIGENCE · CREATOR: ARIYAN ----------
+      // Features: Time & date aware, Bangladesh updates, neural synthesis thinking
+      
+      // DOM elements
+      const arena = document.getElementById('messageArena');
+      const composer = document.getElementById('textComposer');
+      const sendBtn = document.getElementById('sendMessageBtn');
+      const apiKeyField = document.getElementById('apiKeyField');
+      const modelSelector = document.getElementById('modelSelector');
+      const tempSlider = document.getElementById('tempSlider');
+      const tempLabel = document.getElementById('tempLabel');
+      const globalToken = document.getElementById('globalToken');
+      const sideToken = document.getElementById('sideToken');
+      const typingDiv = document.getElementById('typingIndicatorLux');
+      const clearBtn = document.getElementById('clearChatBtn');
+      
+      // Sidebar
+      const sidebar = document.getElementById('settingsSidebar');
+      const hamburger = document.getElementById('hamburgerBtn');
+      const overlay = document.getElementById('drawerOverlay');
+
+      // ---------- SIDEBAR TOGGLE ----------
+      function openSidebar() { sidebar.classList.add('open'); overlay.classList.add('active'); }
+      function closeSidebar() { sidebar.classList.remove('open'); overlay.classList.remove('active'); }
+      hamburger.addEventListener('click', openSidebar);
+      overlay.addEventListener('click', closeSidebar);
+
+      // ---------- STATE ----------
+      let conversation = [];
+      let totalTokens = 0;
+      let isStreaming = false;
+      let abortCtrl = null;
+
+      // ---------- LOCAL STORAGE FOR API KEY ----------
+      const STORAGE_KEY = 'arisoft_prod_key';
+      if (localStorage.getItem(STORAGE_KEY)) apiKeyField.value = localStorage.getItem(STORAGE_KEY);
+      apiKeyField.addEventListener('input', () => localStorage.setItem(STORAGE_KEY, apiKeyField.value));
+
+      // ---------- TEMP SLIDER ----------
+      tempSlider.addEventListener('input', function() { tempLabel.textContent = parseFloat(this.value).toFixed(2); });
+      tempLabel.textContent = parseFloat(tempSlider.value).toFixed(2);
+
+      // ---------- TOKEN UPDATE ----------
+      function addTokens(amt = 0) { totalTokens += amt; globalToken.textContent = totalTokens; sideToken.textContent = totalTokens; }
+
+      // ---------- MARKDOWN ----------
+      function renderMarkdown(txt) {
+        if (!txt) return '';
+        let escaped = txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        escaped = escaped.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+        escaped = escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+        escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        escaped = escaped.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        escaped = escaped.replace(/\n/g, '<br>');
+        return escaped;
+      }
+
+      // ---------- 🌍 GLOBAL TIME, DATE, BANGLADESH AWARE ----------
+      function getGlobalTimeInfo() {
+        const now = new Date();
+        const options = { 
+          timeZone: 'Asia/Dhaka', 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit', 
+          minute: '2-digit', 
+          second: '2-digit',
+          hour12: true
+        };
+        const bdTime = now.toLocaleString('en-BD', options);
+        const isoString = now.toISOString();
+        return { bdTime, isoString, full: `Bangladesh: ${bdTime} (BST)` };
+      }
+
+      // ---------- CREATOR QUERY + BANGLADESH/TIME QUERY DETECTION ----------
+      function isSpecialQuery(msg) {
+        const lower = msg.toLowerCase();
+        // creator
+        if (['creator', 'maker', 'owner', 'who created', 'who made', 'who is your', 'banayeche', 'banaiche', 'মালিক', 'নির্মাতা', 'ariyan', 'devilback'].some(k => lower.includes(k))) 
+          return 'creator';
+        // time, date, Bangladesh
+        if (lower.includes('time') || lower.includes('date') || lower.includes('bangladesh') || lower.includes('bangla') || lower.includes('সময়') || lower.includes('তারিখ') || lower.includes('বাংলাদেশ'))
+          return 'timebd';
+        return null;
+      }
+
+      // ---------- ADD MESSAGE ----------
+      function addMessage(role, content, isStream = false, streamId = null) {
+        const row = document.createElement('div');
+        row.className = `message-fleet ${role === 'user' ? 'user-fleet' : 'ai-fleet'}`;
+        if (streamId) row.id = streamId;
+        const bubble = document.createElement('div');
+        bubble.className = 'nebula-bubble';
+        bubble.innerHTML = (role === 'user') ? content.replace(/\n/g,'<br>') : renderMarkdown(content);
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-vessel';
+        copyBtn.textContent = '📋 copy';
+        copyBtn.onclick = (e) => { e.stopPropagation(); navigator.clipboard.writeText(content); copyBtn.textContent = '✅ copied'; setTimeout(() => copyBtn.textContent = '📋 copy', 1500); };
+        bubble.appendChild(copyBtn);
+        row.appendChild(bubble);
+        arena.appendChild(row);
+        autoScroll();
+        return row;
+      }
+
+      function autoScroll() { arena.scrollTop = arena.scrollHeight; }
+
+      // ---------- RESET CHAT · CREATOR IDENTITY FIRST ----------
+      function resetChat() {
+        if (isStreaming && abortCtrl) abortCtrl.abort();
+        isStreaming = false;
+        arena.innerHTML = '';
+        conversation = [];
+        totalTokens = 0;
+        addTokens(0);
+        const initialMsg = '✨ **Arisoft AI** — global intelligence.\n\nI am Arisoft AI, created by **Ariyan**. I provide real‑time global date, time, and Bangladesh updates.\n\n📬 Contact: Telegram @Devilback12';
+        addMessage('assistant', initialMsg);
+        conversation.push({ role: 'assistant', content: initialMsg });
+      }
+
+      // ---------- ERROR ----------
+      function showError(msg) {
+        const errDiv = document.createElement('div');
+        errDiv.style.background = 'rgba(200,40,60,0.2)'; errDiv.style.border = '1px solid #ff8080'; errDiv.style.borderRadius = '30px'; errDiv.style.padding = '12px 22px'; errDiv.style.color = '#ffd0d0'; errDiv.style.margin = '8px 0'; errDiv.textContent = '⚠️ ' + msg;
+        arena.appendChild(errDiv); autoScroll();
+      }
+
+      // ---------- STREAMING OPENROUTER WITH SPECIAL HANDLING ----------
+      async function sendArisoftStream(userText) {
+        if (!userText.trim()) return;
+        const apiKey = apiKeyField.value.trim();
+        if (!apiKey) { showError('OpenRouter API key required'); return; }
+
+        // ----- SPECIAL QUERIES (creator + time/Bangladesh) -----
+        const special = isSpecialQuery(userText);
+        if (special === 'creator') {
+          const creatorResponse = 'I am **Arisoft AI**. My creator and owner is **Ariyan**. For contact: Telegram @Devilback12';
+          addMessage('assistant', creatorResponse);
+          conversation.push({ role: 'assistant', content: creatorResponse });
+          addTokens(12);
+          return;
+        }
+        if (special === 'timebd') {
+          const timeInfo = getGlobalTimeInfo();
+          const bdResponse = `🌏 **Current Date & Time (Bangladesh)**\n\n${timeInfo.bdTime}\n\n🇧🇩 Bangladesh Standard Time (BST, UTC+6).\n\n_Accurate as of ${new Date().toISOString().slice(0,10)}._`;
+          addMessage('assistant', bdResponse);
+          conversation.push({ role: 'assistant', content: bdResponse });
+          addTokens(18);
+          return;
+        }
+
+        // ----- NORMAL CHAT -----
+        addMessage('user', userText);
+        conversation.push({ role: 'user', content: userText });
+
+        const model = modelSelector.value;
+        const temp = parseFloat(tempSlider.value);
+
+        typingDiv.style.display = 'block';
+        autoScroll();
+
+        const streamId = 'arisoft-' + Date.now();
+        let aiFull = '';
+        addMessage('assistant', '▌', true, streamId);
+        isStreaming = true;
+        abortCtrl = new AbortController();
+
+        try {
+          const messages = conversation.map(c => ({ role: c.role, content: c.content }));
+          const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json',
+              'HTTP-Referer': window.location.origin,
+              'X-Title': 'Arisoft AI'
+            },
+            body: JSON.stringify({ model, messages, temperature: temp, stream: true }),
+            signal: abortCtrl.signal
+          });
+
+          if (!response.ok) throw new Error(`API error ${response.status}`);
+
+          const reader = response.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = '';
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split('\n');
+            buffer = lines.pop() || '';
+
+            for (const line of lines) {
+              if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+                try {
+                  const json = JSON.parse(line.slice(6));
+                  const delta = json.choices?.[0]?.delta?.content || '';
+                  aiFull += delta;
+                  const row = document.getElementById(streamId);
+                  if (row) {
+                    const bub = row.querySelector('.nebula-bubble');
+                    bub.innerHTML = renderMarkdown(aiFull) + '▌';
+                  }
+                  autoScroll();
+                  if (json.usage?.total_tokens) addTokens(json.usage.total_tokens);
+                } catch (e) {}
+              }
+            }
+          }
+
+          const finalRow = document.getElementById(streamId);
+          if (finalRow) {
+            const bub = finalRow.querySelector('.nebula-bubble');
+            bub.innerHTML = renderMarkdown(aiFull);
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-vessel'; copyBtn.textContent = '📋 copy';
+            copyBtn.onclick = (e) => { e.stopPropagation(); navigator.clipboard.writeText(aiFull); copyBtn.textContent = '✅ copied'; setTimeout(() => copyBtn.textContent = '📋 copy', 1500); };
+            bub.appendChild(copyBtn);
+          }
+
+          conversation.push({ role: 'assistant', content: aiFull });
+          addTokens(Math.ceil(aiFull.length / 4));
+
+        } catch (err) {
+          if (err.name !== 'AbortError') showError(err.message);
+        } finally {
+          typingDiv.style.display = 'none';
+          isStreaming = false;
+          abortCtrl = null;
+        }
+      }
+
+      // ---------- SEND ----------
+      function handleSend() {
+        const msg = composer.value.trim();
+        if (msg && !isStreaming) { sendArisoftStream(msg); composer.value = ''; }
+      }
+      sendBtn.addEventListener('click', handleSend);
+      composer.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } });
+
+      // ---------- CLEAR CHAT ----------
+      clearBtn.addEventListener('click', resetChat);
+
+      // ---------- INITIALIZE ----------
+      resetChat();
+    })();
+  </script>
+</body>
+</html>
